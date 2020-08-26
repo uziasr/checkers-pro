@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import checkerPiece from './checkerPiece.png'
 
 const Game = () => {
 
@@ -66,12 +67,12 @@ const Game = () => {
     }
 
     const makeMove = (col, rowIndex, colIndex) => {
-        if (Math.abs(focusedPiece[0] - rowIndex)==2) {
-            setBoard(()=>{
+        if (Math.abs(focusedPiece[0] - rowIndex) == 2) {
+            setBoard(() => {
                 const newBoard = [...board]
-                const diffenceRate = [(rowIndex - focusedPiece[0])/2, (colIndex - focusedPiece[1])/2]
+                const diffenceRate = [(rowIndex - focusedPiece[0]) / 2, (colIndex - focusedPiece[1]) / 2]
                 console.log(diffenceRate)
-                newBoard[focusedPiece[0] + diffenceRate[0]][ focusedPiece[1] + diffenceRate[1]] = 0
+                newBoard[focusedPiece[0] + diffenceRate[0]][focusedPiece[1] + diffenceRate[1]] = 0
                 newBoard[rowIndex][colIndex] = focusedNum
                 newBoard[focusedPiece[0]][focusedPiece[1]] = col
                 return newBoard
@@ -92,14 +93,18 @@ const Game = () => {
     }
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", margin: "3% 0" }}>
             {board.map((row, rowIndex) => (
                 <div style={{ display: "flex", textAlign: "center", alignSelf: "center" }}>
                     {row.map((col, colIndex) => {
-                        return <p
-                            className={`piece-${col} piece`}
-                            style={rowIndex in focusedPieceTravels && focusedPieceTravels[rowIndex].includes(colIndex) ? { color: "dodgerblue", cursor: "pointer" } : {}}
-                            onClick={(e) => col == 1 || col == 2 ? onPieceClick(col, rowIndex, colIndex) : rowIndex in focusedPieceTravels && focusedPieceTravels[rowIndex].includes(colIndex) ? makeMove(col, rowIndex, colIndex) : null}>{col.toString()}</p>
+                        return <div
+                            className="piece-wrap"
+                            style={rowIndex in focusedPieceTravels && focusedPieceTravels[rowIndex].includes(colIndex) ? { background: "dodgerblue", cursor: "pointer" } : (colIndex + rowIndex) % 2 ? { background: "black", cursor: "pointer" } : { background: "green" }}
+                            onClick={(e) => col == 1 || col == 2 ? onPieceClick(col, rowIndex, colIndex) : rowIndex in focusedPieceTravels && focusedPieceTravels[rowIndex].includes(colIndex) ? makeMove(col, rowIndex, colIndex) : null}
+                        >
+                            {/* <p className={`piece-${col} piece`}>•</p> */}
+                            <img className={`piece-${col} piece`} src={checkerPiece} style={{ borderRadius: "50%", padding:0}} height={"75px"}/>
+                        </div>
                     })}
                 </div>
             ))}
