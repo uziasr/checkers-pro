@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+.piece-0 {
+  color:black;
+}
+.piece-1{
+  color: blue;
+  cursor: pointer;
+}
+.piece-2{
+  color:red;
+  cursor: pointer;
+}
+
+.piece {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 10px;
+}
