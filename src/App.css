@@ -61,6 +61,25 @@
 }
 
 .piece-wrap {
-  padding: 10px 40px;
+  padding: 10px 17.5px;
   margin: 0;
+
+}
+
+@media only screen and (max-width:720px) {
+  .piece-wrap {
+    padding: 5px 8.75px;
+  }
+
+}
+
+@media only screen and (max-width:480px) {
+  .piece-wrap {
+    padding: 1.25px 2.1875px;
+  }
+
+}
+
+body{
+  background: whitesmoke;
 }
