@@ -4,16 +4,7 @@ import { Player } from './player'
 
 const Game = () => {
 
-    var [board, setBoard] = useState([
-        [0, 1, 0, 1, 0, 1, 0, 1],
-        [1, 0, 1, 0, 1, 0, 1, 0],
-        [0, 1, 0, 1, 0, 1, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [2, 0, 2, 0, 2, 0, 2, 0],
-        [0, 2, 0, 2, 0, 2, 0, 2],
-        [2, 0, 2, 0, 2, 0, 2, 0]
-    ])
+
 
 
     useEffect(() => {
@@ -28,6 +19,20 @@ const Game = () => {
     const [focusedPiece, setFocusedPiece] = useState([])
     const [focusedNum, setFocusedNum] = useState()
     const [focusedPieceTravels, setFocusedPiecedTravels] = useState({})
+
+    console.log(focusedNum)
+
+    var [board, setBoard] = useState([
+        [0, 1, 0, 1, 0, 1, 0, 1],
+        [1, 0, 1, 0, 1, 0, 1, 0],
+        [0, 1, 0, 1, 0, 1, 0, 1],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [2, 0, 2, 0, 2, 0, 2, 0],
+        [0, 2, 0, 2, 0, 2, 0, 2],
+        [2, 0, 2, 0, 2, 0, 2, 0]
+    ])
+
     const movementLogic = (num, coordinate, initialBoard = board, ) => {
         const radius = []
         if (num === 2) {
@@ -81,15 +86,15 @@ const Game = () => {
             setBoard(() => {
                 const newBoard = [...board]
                 const diffenceRate = [(rowIndex - focusedPiece[0]) / 2, (colIndex - focusedPiece[1]) / 2]
-                console.log(diffenceRate)
+                // console.log(diffenceRate)
                 newBoard[focusedPiece[0] + diffenceRate[0]][focusedPiece[1] + diffenceRate[1]] = 0
                 newBoard[rowIndex][colIndex] = focusedNum
                 newBoard[focusedPiece[0]][focusedPiece[1]] = col
-                console.log(player1.turn, player2.turn)
+                // console.log(player1.turn, player2.turn)
                 if (player1.turn) {
-                    setPlayer2DeadPieces(player2DeadPieces+1)
+                    setPlayer2DeadPieces(player2DeadPieces + 1)
                 } else {
-                    setPlayer1DeadPieces(player1DeadPieces+1)
+                    setPlayer1DeadPieces(player1DeadPieces + 1)
                 }
                 return newBoard
             })
@@ -127,17 +132,18 @@ const Game = () => {
         }
     }
 
-    console.log(player1DeadPieces, player2DeadPieces)
+    // console.log(player1DeadPieces, player2DeadPieces)
 
     return (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", margin: "1% 0" }}>
-            {player2DeadPieces == 12 || player1DeadPieces == 12 ? <h1>{player2DeadPieces == 12 ? "Player 2 Wins!!": "Player 1 Wins!!" }</h1>: <h1>Who Will One?</h1>}
+            {player2DeadPieces == 12 || player1DeadPieces == 12 ? <h1>{player2DeadPieces == 12 ? "Blue Wins!!" : "Red Wins!!"}</h1> : <h1>Who Will One?</h1>}
+            {player2DeadPieces == 12 || player1DeadPieces == 12 ? null : player1.turn ? <h2 style={{ color: "blue", padding: 0, margin: 0 }}>Blue's Move</h2> : <h2 style={{ color: "red", padding: 0, margin: 0 }}>Red's Turn</h2>}
             {board.map((row, rowIndex) => (
                 <div style={{ display: "flex", textAlign: "center", alignSelf: "center" }}>
                     {row.map((col, colIndex) => {
                         return <div
                             className="piece-wrap"
-                            style={rowIndex in focusedPieceTravels && focusedPieceTravels[rowIndex].includes(colIndex) ? { background: "dodgerblue", cursor: "pointer" } : (colIndex + rowIndex) % 2 ? { background: "black", cursor: "pointer" } : { background: "green" }}
+                            style={rowIndex in focusedPieceTravels && focusedPieceTravels[rowIndex].includes(colIndex) ? { background: "dodgerblue", cursor: "pointer" } : (colIndex + rowIndex) % 2 ? { background: "black", cursor: "pointer" } : { background: "	mediumseagreen" }}
                             onClick={(e) => clickHandler(col, rowIndex, colIndex)}
                         >
                             {/* <p className={`piece-${col} piece`}>•</p> */}
